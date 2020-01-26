@@ -1,9 +1,7 @@
 package networks.languages;
 
 import networks.Response;
-
 import org.json.simple.JSONObject;
-
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,6 +15,8 @@ public interface Language {
     static Language match(String language) {
         if (language.equalsIgnoreCase("java")) {
             return new Java();
+        } else if (language.equalsIgnoreCase("python")) {
+            return new Python();
         }
 
         return null;
@@ -25,17 +25,14 @@ public interface Language {
     static void compile(Language language, Path in, Path out, Response response) {
         try {
             ProcessBuilder processBuilder = new ProcessBuilder();
-
             processBuilder.command("bash", "-c", "cd " + out.toString() + " && " + language.compile(in, out) + " > output.log");
             Process process = processBuilder.start();
             process.waitFor();
             File f = new File(out.toString() + "/" + OUTPUT);
-
             BufferedReader reader = new BufferedReader(new FileReader(f));
 
             StringBuilder buf = new StringBuilder();
             int c;
-
             while ((c = reader.read()) != -1) {
                 buf.append((char) c);
             }
@@ -45,7 +42,6 @@ public interface Language {
             JSONObject obj = new JSONObject();
             obj.put("data",buf.toString());
             response.setBody(obj.toJSONString());
-
             response.setStatusCode(200);
 
         } catch (IOException | InterruptedException e) {
