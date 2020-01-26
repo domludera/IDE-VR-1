@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IDE VR</title>
+        <!-- Feel free to change the header scripts to require('aframe'); and require('aframe-textarea-component'); respectively -->
+        <!-- a-frame script -->
+        <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+        <!-- a-frame-textarea script -->
+        <script src="https://unpkg.com/aframe-textarea-component/dist/aframe-textarea-component.min.js"></script>
+        <!--
+        <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+        -->
+        <script type="module" src="static/scripts/hotkeys.js"></script>
+        <script type="module" src="static/scripts/ideLogic.js"></script>
+</head>
+<body>
+<a-scene>
+
+    <a-entity id="window1" position="0 1.5 -1" textarea="cols: 20; rows: 4; text: this is a multiline textarea; backgroundColor: #01579b; color: white; disabledBackgroundColor: red; disabled: false;">
+    </a-entity>
+
+    <a-camera><a-cursor></a-cursor></a-camera>
+</a-scene>
+</body>
+   <!--
+<script type="text/javascript">
+
+        var sceneEl = document.querySelector('a-scene');
+        //make frame dynamic, using Angular?
+        var frame = sceneEl.querySelector('#window1');
+
+    var target = null;
+    var prevTarget = null;
+    var fileData = {};
+
+
+    frame.addEventListener('mouseenter', function(e){
+        prevTarget = target;
+        prevTarget.setAttribute("textarea", "disabled: true");
+        target = e.currentTarget;
+        target.setAttribute("textarea", "disabled: false");
+
+    });
+
+
+    frame.addEventListener('mouseleave', function(e){
+        target = e.currentTarget;
+        target.setAttribute("textarea", "disabled: true");
+    });
+
+
+    hotkeys('ctrl+s', function(event, handler){
+        event.preventDefault();
+        fileData['file_name'] = target.id;
+        fileData['content'] = target.components.textarea.textarea.value;
+        console.log(fileData)
+    });
+
+    hotkeys('ctrl+v', function(event, handler) {
+        event.preventDefault();
+        var newEl = document.createElement("a-entity");
+        var screenPos = [
+            {
+                pos: "-2 1.5 -1",
+                rotation: "0 90 0"
+            },
+        ];
+
+        console.log(screenPos);
+        newEl.setAttribute("position", screenPos[0].pos);
+        newEl.setAttribute("rotation", screenPos[0].rotation);
+        newEl.setAttribute(
+            "textarea",
+            "cols: 20; rows: 4; text: this is a multiline textarea; backgroundColor: #f8203B; color: white; disabledBackgroundColor: green; disabled: false;"
+        );
+        sceneEl.appendChild(newEl);
+    });
+
+
+    /*
+    Example for custom key input
+    Can also handle key combination ('Ctrl+n') etc.
+    //Note: implement 'tab' (hotkeys)
+
+    var str;
+
+    hotkeys('q', function (event, handler){
+            var btn = document.getElementsByName("a-scene").createElement("a-entity");
+
+        }
+    });
+
+     */
+
+
+</script>
+-->
+</html>
+
