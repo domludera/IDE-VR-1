@@ -1,18 +1,10 @@
 var serverUtils = require('../../Transfer-Server/server-utils');
 var sceneEl = document.querySelector('a-scene');
-//make frame dynamic, using Angular?
 var frame = sceneEl.querySelector('#window1');
 
 var target;
 var prevTarget;
 var fileData = {};
-
-// var save = sceneEl.querySelector('#saveWindow');
-// var load = sceneEl.querySelector('#loadWindow');
-
-
-// var save = sceneEl.querySelector('#save');
-// var load = sceneEl.querySelector('#load');
 
 
 var menuItems = sceneEl.querySelectorAll('.file-directory_item');

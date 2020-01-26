@@ -8,7 +8,25 @@ var bodyParser = require('body-parser');
 const helmet = require('helmet');
 const https = require('https');
 
+
+global.newDirectory = {
+    directoryContent: serverUtils.intitDirectoryStructure()
+
+}
+
+
 app.use(bodyParser.json());
+
+//app.use(express.static(__dirname+'/html'));
+//app.use(express.static(__dirname+'scripts'));
+
+app.use(helmet());
+
+app.use("/", express.static(__dirname));
+app.use("/", express.static(__dirname+'/static'));
+
+app.use('/', router);
+
 
 
 global.newFile = {
@@ -17,9 +35,8 @@ global.newFile = {
     fileContent: ""
 }
 
-global.newDirectory = {
-    directoryContent: []
-}
+
+
 
 router.get('/', function(req, res){
     serverUtils.intitDirectoryStructure();
@@ -44,14 +61,9 @@ router.get('/newFile', function(req, res){
     res.send(serverUtils.jsonToDictionary(internalProjectDirectory));
 });
 
-
-
-app.use(express.static(__dirname+'/html'));
-//app.use(express.static(__dirname+'scripts'));
-app.use('/', router);
-app.use(helmet());
-app.use("/", express.static(__dirname));
-
-app.listen(8080, function(){
-    console.log("Listening to Port 8080");
+https.createServer({
+    key: fs.readFileSync(__dirname+'/../../certs/key.pem'),
+    cert: fs.readFileSync(__dirname+'/../../certs/cert.pem')
+}, app).listen(3000, function(){
+    console.log("Listening to Port 3000");
 });
