@@ -21,10 +21,8 @@ public class Session implements Runnable {
             StringBuilder builder = new StringBuilder();
 
             do {
-
                 builder.append((char) in.read());
             } while (builder.indexOf("\r\n\r\n") == -1);
-
 
             Request request = new Request();
             request.fromString(builder.toString());
@@ -34,12 +32,10 @@ public class Session implements Runnable {
                 length = Integer.parseInt(request.getHeader("Content-Length"));
             }
 
-
             while (length > 0) {
                 builder.append((char) in.read());
                 length--;
             }
-
 
             request.setBody(builder.toString());
 

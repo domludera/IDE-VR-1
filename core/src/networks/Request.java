@@ -8,9 +8,7 @@ public class Request {
     private String method;
     private String URL;
     private String version;
-
     private HashMap<String, String> headers;
-
     private String body;
 
     public Request() {
@@ -50,7 +48,6 @@ public class Request {
         return headers.get(name);
     }
 
-
     public void removeHeader(String name) {
         headers.remove(name);
     }
@@ -59,15 +56,12 @@ public class Request {
         HashMap<String, String> copy = new HashMap<>();
         for (Map.Entry<String, String> header : headers.entrySet()) {
             copy.put(header.getKey(), header.getValue());
-
         }
         return copy;
     }
 
-
     public void addHeader(String name, String value) {
         headers.put(name, value);
-
     }
 
     public boolean headerContains(String name) {
@@ -118,11 +112,9 @@ public class Request {
         URL = token.nextToken(" ");
         version = token.nextToken(" ");
 
-
         for (int i = 1; i < upper_portion.length; i++) {
             String[] header = upper_portion[i].split(": ");
             headers.put(header[0], header[1]);
-
         }
 
     }

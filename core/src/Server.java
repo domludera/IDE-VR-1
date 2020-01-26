@@ -2,8 +2,6 @@ import networks.Session;
 import networks.commands.Command;
 
 import java.io.IOException;
-
-
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -23,8 +21,6 @@ public class Server {
             ServerSocket server = new ServerSocket(8888);
             while (true) {
                 Socket client = server.accept();
-
-
                 Thread thread = new Thread(new Session(client));
                 thread.start();
             }
