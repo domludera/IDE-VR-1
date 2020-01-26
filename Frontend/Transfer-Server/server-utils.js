@@ -1,5 +1,4 @@
 var HTTP = require('http');
-var querystring = require('query-string');
 
 module.exports.jsonToDictionary = function(directory_JSON){
     //change into JSON.parse(directory_JSON) afterwards when requests are up
@@ -14,7 +13,7 @@ module.exports.jsonToDictionary = function(directory_JSON){
 module.exports.intitDirectoryStructure = function(){
     HTTP.get('http://localhost:8888/', function(res){
         const {statusCode} = res;
-    
+        var localStorage;
         let error;
         if(statusCode != 200)
             error = new Error('Request Failed \n'+ `StatusCode: ${statusCode}`);
@@ -27,9 +26,10 @@ module.exports.intitDirectoryStructure = function(){
         res.on('end', ()=>{
             try{
                 const parsedData = JSON.parse(rawData);
+                console.log(parsedData);
                 newDirectory.directoryContent = parsedData.directory;
-                console.log(newDirectory);
-                return parsedData;
+               
+                return newDirectory;
             }
             catch(e){
                 console.log(e.message);

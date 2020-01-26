@@ -1,9 +1,8 @@
 var isShowing = false;
 var sceneEl = document.querySelector('a-scene');
 var fileArea = document.querySelector('#file-area');
-var currentDirectory = [ "main.java" ,"test.java" ,"main1.java" ];
+var currentDirectory = [ "main.java" ,"test.java" ,"main1.java" ]
 
-localStorage.setItem("directory", currentDirectory);
  hotkeys('ctrl+m', function(event,handler){
      event.preventDefault();
       var fileDirectory = sceneEl.querySelector('#menubar');
@@ -14,6 +13,7 @@ localStorage.setItem("directory", currentDirectory);
  });
 
  const getData = function(myJson){
+    console.log(currentDirectory);
     for(let i=0; i<myJson.length;i++)
     var el = document.createElement("a-plane");
     var child = document.createElement("a-text");

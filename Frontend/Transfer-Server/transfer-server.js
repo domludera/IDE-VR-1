@@ -9,8 +9,8 @@ const helmet = require('helmet');
 const https = require('https');
 
 
-var newDirectory = {
-    directoryContent: serverUtils.intitDirectoryStructure()
+global.newDirectory = {
+    directoryContent: []
 
 }
 
@@ -41,7 +41,11 @@ global.newFile = {
 
 router.get('/', function(req, res){
     serverUtils.intitDirectoryStructure();
-    res.sendFile(path.join(__dirname+'/../html/index.html'));
+    if(typeof newDirectory.directoryContent !== null)
+        res.sendFile(path.join(__dirname+'/../html/index.html'))
+   
+    console.log("Checking directory global variable");
+    console.log(newDirectory);
     console.log("Accessing the homepage");
 })
 
