@@ -8,49 +8,36 @@ var bodyParser = require('body-parser');
 const helmet = require('helmet');
 const https = require('https');
 
+
+var newDirectory = {
+    directoryContent: serverUtils.intitDirectoryStructure()
+
+}
+
+
 app.use(bodyParser.json());
 
+//app.use(express.static(__dirname+'/html'));
+//app.use(express.static(__dirname+'scripts'));
 
-global.internalProjectDirectory = 
-    {
-        "id": "src",
-        "language": "JAVA",
-        "typeOfFile": "D",
-        "content": [
-            {
-               "id":"main", 
-               "typeOfFile": "D",
-               "content": [
-                   {
-                       "id": "Main.java",
-                       "typeOfFile": "F",
-                       "content": "public static void main(String[] args){}"
-                   },
-                   {
-                       "id": "HelperClass.java",
-                       "typeOfFile": "F",
-                       "content": "HelperClass{ int x = 10, y=10; public void add(int x, int y){System.out.print(x+y);}}"
-                   }
-               ]
-            }
-            
+app.use(helmet());
 
-        ]
+app.use("/", express.static(__dirname));
+app.use("/static", express.static('./static/'));
+app.use("/Transfer-Server", express.static('./Transfer-Server/'));
 
+app.use('/', router);
 
-    }
 
 
 global.newFile = {
-    fileId: "main.java",
-    language: "Java",
-    fileContent: "public class main {public static void main(String[] args){ }}"
+    fileId: "",
+    language: "",
+    fileContent: ""
 }
 
-global.newDirectory = {
-    directoryId: "",
-    directoryContent: []
-}
+
+
 
 router.get('/', function(req, res){
     serverUtils.intitDirectoryStructure();
@@ -60,7 +47,6 @@ router.get('/', function(req, res){
 
 router.get('/saveFile', function(req, res){
     serverUtils.sendAndSaveFileContents(newFile);
-
     res.send('Request Received');
 
 });
@@ -72,18 +58,13 @@ router.get('/compile', function(req, res){
 
 router.get('/newFile', function(req, res){
     //serverUtils.jsonToDictionary(internalProjectDirectory);
-    //res.sendFile(path.join(__dirname+'/../html/newFile_dummy.html'));
+    res.sendFile(path.join(__dirname+'/../html/newFile_dummy.html'));
     res.send(serverUtils.jsonToDictionary(internalProjectDirectory));
 });
 
-
-
-app.use(express.static(__dirname+'/html'));
-//app.use(express.static(__dirname+'scripts'));
-app.use('/', router);
-app.use(helmet());
-app.use("/", express.static(__dirname));
-
-app.listen(8080, function(){
-    console.log("Listening to Port 8080");
+https.createServer({
+    key: fs.readFileSync(__dirname+'/../../certs/key.pem'),
+    cert: fs.readFileSync(__dirname+'/../../certs/cert.pem')
+}, app).listen(3000, function(){
+    console.log("Listening to Port 3000");
 });
