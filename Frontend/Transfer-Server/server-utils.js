@@ -10,10 +10,6 @@ module.exports.jsonToDictionary = function(directory_JSON){
     return(directory_Object);
 }
 
-module.exports.dictionaryToJSON = function(){
-
-}
-
 
 module.exports.intitDirectoryStructure = function(){
     HTTP.get('http://localhost:8888/', function(res){
@@ -31,7 +27,8 @@ module.exports.intitDirectoryStructure = function(){
         res.on('end', ()=>{
             try{
                 const parsedData = JSON.parse(rawData);
-                console.log(parsedData);
+                newDirectory.directoryContent = parsedData.directory;
+                console.log(newDirectory);
                 return parsedData;
             }
             catch(e){
@@ -77,9 +74,6 @@ module.exports.sendAndSaveFileContents = function(json){
     // post the data
     post_req.write(post_data)
     post_req.end();
-
-
-
 }
 
 
@@ -112,7 +106,7 @@ module.exports.sendCompileRequest = function(json){
     });
 
     // post the data
-    put_req.write(put_data)
+    put_req.write(put_data);
     put_req.end();
 
 }

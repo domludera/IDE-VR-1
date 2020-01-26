@@ -1,3 +1,4 @@
+var serverUtils = require('../../Transfer-Server/server-utils');
 var sceneEl = document.querySelector('a-scene');
 //make frame dynamic, using Angular?
 var frame = sceneEl.querySelector('#window1');
@@ -6,12 +7,12 @@ var target;
 var prevTarget;
 var fileData = {};
 
-var save = sceneEl.querySelector('#saveWindow');
-var load = sceneEl.querySelector('#loadWindow');
+// var save = sceneEl.querySelector('#saveWindow');
+// var load = sceneEl.querySelector('#loadWindow');
 
 
-var save = sceneEl.querySelector('#save');
-var load = sceneEl.querySelector('#load');
+// var save = sceneEl.querySelector('#save');
+// var load = sceneEl.querySelector('#load');
 
 
 var menuItems = sceneEl.querySelectorAll('.file-directory_item');
@@ -19,10 +20,14 @@ var isShowing = false;
 
 
 frame.addEventListener('mouseenter', function(e){
+    if(prevTarget != null){
     prevTarget = target;
     prevTarget.setAttribute("textarea", "disabled: true");
     target = e.currentTarget;
     target.setAttribute("textarea", "disabled: false");
+    }
+
+    prevTarget = e.currentTarget;
 });
 
 frame.addEventListener('mouseleave', function(e){
@@ -31,27 +36,28 @@ frame.addEventListener('mouseleave', function(e){
 });
 
 
-save.addEventListener("mouseenter",function(evt){
-    target = evt.currentTarget;
+// save.addEventListener("mouseenter",function(evt){
+//     target = evt.currentTarget;
+// })
 
-save.addEventListener("mouseenter",function(e){
-    target = e.currentTarget;
+// save.addEventListener("mouseenter",function(e){
+//     target = e.currentTarget;
 
-    target.setAttribute('material', 'color', "blue")
-});
+//     target.setAttribute('material', 'color', "blue")
+// });
 
-save.addEventListener("mouseleave",function(){
-    target.setAttribute('material', 'color',"gray");
-});
+// save.addEventListener("mouseleave",function(){
+//     target.setAttribute('material', 'color',"gray");
+// });
 
-load.addEventListener("mouseenter",function(evt){
-    target = evt.currentTarget;
-    target.setAttribute('material', 'color', "blue")
-});
+// load.addEventListener("mouseenter",function(evt){
+//     target = evt.currentTarget;
+//     target.setAttribute('material', 'color', "blue")
+// });
 
-load.addEventListener("mouseleave",function(){
-    target.setAttribute('material', 'color',"gray");
-});
+// load.addEventListener("mouseleave",function(){
+//     target.setAttribute('material', 'color',"gray");
+// });
 
 
 
@@ -59,14 +65,25 @@ load.addEventListener("mouseleave",function(){
 hotkeys('q', function(event, handler){
     event.preventDefault();
     console.log('hello');
-})
+});
 
+hotkeys('ctrl+b', function(event, handler){
+    event.preventDefault();
+    console.log('hello');
+})
 
 
 hotkeys('ctrl+s', function(event, handler){
     event.preventDefault();
     fileData['file_name'] = target.id;
     fileData['content'] = target.components.textarea.textarea.value;
+    fileData['language'] = "Java";
+
+    newFile.fileId = target.id;
+    newFile.language = "Java";
+    newFile.fileContent = target.components.textarea.textarea.value;
+
+    serverUtils.sendAndSaveFileContents(newFile);
     console.log(fileData)
 });
 
@@ -79,7 +96,7 @@ hotkeys('ctrl+v', function(event, handler) {
         {
             pos: "-2 1.5 -1",
             rotation: "0 90 0"
-        },
+        }
     ];
 
     console.log(screenPos);
@@ -111,32 +128,3 @@ hotkeys('ctrl+v', function(event, handler) {
     );
     sceneEl.appendChild(newEl);
 });
-
-
-
-hotkeys('ctrl+m', function(event,handler){
-    event.preventDefault();
-     var fileDirectory = sceneEl.querySelector('#file-directory');
-     isShowing = !isShowing;
-    fileDirectory.setAttribute('visible', isShowing);
-    
-});
-
-
-
-
-
-/*
-Example for custom key input
-Can also handle key combination ('Ctrl+n') etc.
-//Note: implement 'tab' (hotkeys)
-
-var str;
-
-hotkeys('q', function (event, handler){
-        var btn = document.getElementsByName("a-scene").createElement("a-entity");
-
-    }
-});
-
- */

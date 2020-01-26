@@ -11,44 +11,13 @@ const https = require('https');
 app.use(bodyParser.json());
 
 
-global.internalProjectDirectory = 
-    {
-        "id": "src",
-        "language": "JAVA",
-        "typeOfFile": "D",
-        "content": [
-            {
-               "id":"main", 
-               "typeOfFile": "D",
-               "content": [
-                   {
-                       "id": "Main.java",
-                       "typeOfFile": "F",
-                       "content": "public static void main(String[] args){}"
-                   },
-                   {
-                       "id": "HelperClass.java",
-                       "typeOfFile": "F",
-                       "content": "HelperClass{ int x = 10, y=10; public void add(int x, int y){System.out.print(x+y);}}"
-                   }
-               ]
-            }
-            
-
-        ]
-
-
-    }
-
-
 global.newFile = {
-    fileId: "main.java",
-    language: "Java",
-    fileContent: "public class main {public static void main(String[] args){ }}"
+    fileId: "",
+    language: "",
+    fileContent: ""
 }
 
 global.newDirectory = {
-    directoryId: "",
     directoryContent: []
 }
 
@@ -60,7 +29,6 @@ router.get('/', function(req, res){
 
 router.get('/saveFile', function(req, res){
     serverUtils.sendAndSaveFileContents(newFile);
-
     res.send('Request Received');
 
 });
@@ -72,7 +40,7 @@ router.get('/compile', function(req, res){
 
 router.get('/newFile', function(req, res){
     //serverUtils.jsonToDictionary(internalProjectDirectory);
-    //res.sendFile(path.join(__dirname+'/../html/newFile_dummy.html'));
+    res.sendFile(path.join(__dirname+'/../html/newFile_dummy.html'));
     res.send(serverUtils.jsonToDictionary(internalProjectDirectory));
 });
 
