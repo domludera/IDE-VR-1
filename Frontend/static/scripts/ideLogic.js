@@ -1,4 +1,4 @@
-var serverUtils = require('../../Transfer-Server/server-utils');
+//var serverUtils = require('../../Transfer-Server/server-utils');
 var sceneEl = document.querySelector('a-scene');
 var frame = sceneEl.querySelector('#window1');
 

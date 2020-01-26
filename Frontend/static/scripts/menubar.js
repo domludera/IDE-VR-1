@@ -1,7 +1,7 @@
 var isShowing = false;
 var sceneEl = document.querySelector('a-scene');
 var fileArea = document.querySelector('#file-area');
-var currentDirectory = newDirectory;
+var currentDirectory = [ "main.java" ,"test.java" ,"main1.java" ];
 
 localStorage.setItem("directory", currentDirectory);
  hotkeys('ctrl+m', function(event,handler){
@@ -10,7 +10,7 @@ localStorage.setItem("directory", currentDirectory);
       isShowing = !isShowing;
      fileDirectory.setAttribute('visible', isShowing);
     
-    getData(JSON.parse(localStorage.getItem("directory")).directoryContent);
+    getData(currentDirectory);
  });
 
  const getData = function(myJson){

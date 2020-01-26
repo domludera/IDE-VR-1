@@ -9,7 +9,7 @@ const helmet = require('helmet');
 const https = require('https');
 
 
-global.newDirectory = {
+var newDirectory = {
     directoryContent: serverUtils.intitDirectoryStructure()
 
 }
@@ -23,7 +23,8 @@ app.use(bodyParser.json());
 app.use(helmet());
 
 app.use("/", express.static(__dirname));
-app.use("/", express.static(__dirname+'/static'));
+app.use("/static", express.static('./static/'));
+app.use("/Transfer-Server", express.static('./Transfer-Server/'));
 
 app.use('/', router);
 
