@@ -14,7 +14,7 @@
 
 ## HTTPS
 
-It is highly advised to create SSL certificates (`.crt` and `.key`) to have the server run over HTTPS.
+It is highly advised to create SSL certificates (`.crt`, a `.pem`, and `.key`) to have the server run over HTTPS.
 > (If you run the app from Google Chrome on your mobile and you feel like the gyroscope isn't working, thats probably why.) 
 
 Once the certificates are created, copy them into `certs/` and make sure to change the `<filename>` variable in `https.js` to the corresponding filename.
