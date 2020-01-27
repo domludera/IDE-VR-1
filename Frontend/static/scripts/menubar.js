@@ -2,6 +2,7 @@ var isShowing = false;
 var sceneEl = document.querySelector('a-scene');
 var fileArea = document.querySelector('#file-area');
 var currentDirectory = [ "main.java" ,"test.java" ,"main1.java" ]
+sessionStorage("description", currentDirectory);
 
  hotkeys('ctrl+m', function(event,handler){
      event.preventDefault();

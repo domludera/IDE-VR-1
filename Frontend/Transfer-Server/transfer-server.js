@@ -8,10 +8,9 @@ var bodyParser = require('body-parser');
 const helmet = require('helmet');
 const https = require('https');
 
-
+localStorage.setItem();
 global.newDirectory = {
     directoryContent: []
-
 }
 
 
